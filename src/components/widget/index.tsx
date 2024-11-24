@@ -1,12 +1,12 @@
 import { useWidget } from "@/hooks/use-widget";
 import { ClerkLoading, SignedIn } from "@clerk/clerk-react";
 import Spinner from "../global/spinner";
-import { useMediaSources } from "@/hooks/use-media-sources";
+import MediaConfig from "./media-config";
 
 const Widget = () => {
-  const { profile } = useWidget();
-  const {fetchMediaResources,state}=useMediaSources();
-  console.log(profile)
+  const { profile ,state} = useWidget();
+ 
+  
   return (
     <div className="p-5">
       <ClerkLoading>
@@ -16,7 +16,7 @@ const Widget = () => {
       </ClerkLoading>
       <SignedIn>
         {profile ? (
-         <MediaConfig/>
+         <MediaConfig user={profile} state={state}/>
         ) : (
           <div className="w-full h-full flex justify-center items-center">
             <Spinner loading={true} />

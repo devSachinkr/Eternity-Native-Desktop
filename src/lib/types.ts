@@ -3,7 +3,7 @@ export type Profile = {
   user:
     | ({
         subscription: {
-          plan: "Free" | "PRO";
+          plan: "FREE" | "PRO";
         } | null;
         studio: {
           id: string;
@@ -16,8 +16,8 @@ export type Profile = {
       } & {
         id: string;
         email: string;
-        firstName: string | null;
-        lastName: string | null;
+        firstname: string | null;
+        lastname: string | null;
         createdAt: Date;
         clerkId: string;
       })
@@ -48,3 +48,13 @@ export type DisplayDeviceAction = {
     displays: SourceDeviceState;
   };
 };
+
+export type MediaSource =
+  | {
+      screen: string;
+      id: string;
+      audio: string;
+      preset: "HD" | "SD";
+      plan: "FREE" | "PRO";
+    }
+  | undefined;

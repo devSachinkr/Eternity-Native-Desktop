@@ -1,6 +1,5 @@
-import { useReducer } from "react";
-import { reducer } from "./use-toast";
 import { DisplayDeviceAction, SourceDeviceState } from "@/lib/types";
+import { useReducer } from "react";
 import { useMedia } from "./use-media";
 
 export const useMediaSources = () => {
@@ -34,17 +33,21 @@ export const useMediaSources = () => {
         },
       },
     });
-    const { displays, audio } = await getMediaResources();
-    action({
-      type: "GET_DISPLAYS",
-      payload: {
+    try {
+      const { displays, audio } = await getMediaResources();
+      action({
+        type: "GET_DISPLAYS",
+        payload: {
         displays: {
           displays,
           audioInput: audio,
           isPending: false,
         },
-      },
-    });
+        },
+      });
+    } catch (error) {
+      console.log("Error fetching media resources 🔴: 🙏", error);
+    }
   };
   return { state, fetchMediaResources };
 };

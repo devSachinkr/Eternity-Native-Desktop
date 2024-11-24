@@ -1,16 +1,15 @@
 import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import { Profile } from "@/lib/types";
-import axios from "axios";
+import { httpClient } from "@/lib/axios-config";
+import { useMediaSources } from "./use-media-sources";
 export const useWidget = () => {
   console.log("useWidget : 🙏");
   const { user } = useUser();
   const [profile, setProfile] = useState<Profile | null>(null);
-  const httpClient = axios.create({
-    baseURL: import.meta.env.VITE_HOST_URL,
-  });
+  const { fetchMediaResources, state } = useMediaSources();
   const fetchProfile = async (userId: string) => {
-    const {data} = await httpClient.get(`/auth/${userId}`,{
+    const { data } = await httpClient.get(`/auth/${userId}`, {
         headers:{
             'Content-Type':'application/json',
         }
@@ -23,8 +22,9 @@ export const useWidget = () => {
   useEffect(() => {
     if (user && user.id) {
       fetchProfile(user.id).then((profile) => setProfile(profile));
+      fetchMediaResources();
     }
   }, [user]);
 
-  return { profile };
+  return { profile, state };
 };

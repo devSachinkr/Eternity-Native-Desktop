@@ -14,7 +14,7 @@ export const ControlLayout = ({ children, className }: Props) => {
   return (
     <div
       className={cn(
-        " bg-[#171717] flex px-1  flex-col rounded-3xl  overflow-hidden",
+        " bg-[#020000] border border-dashed border-[#575655] flex px-1  flex-col rounded-3xl  overflow-hidden",
         className,
         isVisible && "invisible"
       )}
